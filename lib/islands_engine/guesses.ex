@@ -14,7 +14,4 @@ defmodule IslandsEngine.Guesses do
     update_in(guesses.misses, &MapSet.put(&1, coordinate))
   end
 
-  def overlaps?(existing_island, new_island) do
-    not MapSet.disjoint?(existing_island.coordinates, new_island.coordinates)
-  end
 end

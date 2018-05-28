@@ -4,7 +4,6 @@ defmodule IslandsEngine.Island do
   @enforce_keys [:coordinates, :hit_coordinates]
   defstruct [:coordinates, :hit_coordinates]
 
-  def new(), do: %Island{coordinates: MapSet.new(), hit_coordinates: MapSet.new()}
 
   def new(type, %Coordinate{} = upper_left) do
     with [_|_] = offsets <- offsets(type),
@@ -29,6 +28,10 @@ defmodule IslandsEngine.Island do
       {:error, :invalid_coordinate} ->
         {:halt, {:error, :invalid_coordinate}}
     end
+  end
+
+  def overlaps?(existing_island, new_island) do
+    not MapSet.disjoint?(existing_island.coordinates, new_island.coordinates)
   end
 
   defp offsets(:square), do: [{0, 0}, {0, 1}, {1, 0}, {1, 1}]
