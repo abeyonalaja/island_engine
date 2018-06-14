@@ -15,4 +15,8 @@ defmodule IslandsEngine.Board do
       key! = new_key and Island.overlaps?(island, new_island)
     end)
   end
+
+  def all_islands_positioned?(boad) do
+    Enum.all?(Island.types, &(Map.has_key?(boad, &1)))
+  end
 end
